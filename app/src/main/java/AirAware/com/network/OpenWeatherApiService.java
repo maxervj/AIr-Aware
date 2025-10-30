@@ -1,6 +1,7 @@
 package AirAware.com.network;
 
 import AirAware.com.data.AirPollutionResponse;
+import AirAware.com.data.Forecast;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -37,7 +38,7 @@ public interface OpenWeatherApiService {
      * @return Response contenant les prévisions de pollution
      */
     @GET("air_pollution/forecast")
-    Call<AirPollutionResponse> getForecastAirPollution(
+    Call<Forecast> getForecastAirPollution(
             @Query("lat") double lat,
             @Query("lon") double lon,
             @Query("appid") String appid
