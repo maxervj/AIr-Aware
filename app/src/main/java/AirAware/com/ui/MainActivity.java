@@ -15,10 +15,14 @@ import AirAware.com.R;
 import AirAware.com.model.AirQuality;
 import AirAware.com.viewmodel.AirQualityViewModel;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
 /**
  * MainActivity utilisant l'architecture MVVM avec l'API OpenWeather
  * La View observe les données du ViewModel via LiveData
+ * Utilise Hilt pour l'injection de dépendances
  */
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private AirQualityViewModel viewModel;

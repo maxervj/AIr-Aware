@@ -13,7 +13,7 @@ public interface OpenWeatherApiService {
     /**
      * URL de base de l'API OpenWeather
      */
-    String BASE_URL = "http://api.openweathermap.org/data/2.5/";
+    String BASE_URL = "https://api.openweathermap.org/data/2.5/";
 
     /**
      * Récupère les données de pollution de l'air actuelles

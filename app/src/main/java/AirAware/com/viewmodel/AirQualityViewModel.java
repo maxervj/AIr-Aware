@@ -8,18 +8,25 @@ import AirAware.com.repository.AirQualityRepository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.lifecycle.HiltViewModel;
+
 /**
  * ViewModel pour gérer la logique de présentation des données de qualité de l'air
  * Sert d'intermédiaire entre la View (Activity/Fragment) et le Repository
+ * Utilise Hilt pour l'injection de dépendances
  */
+@HiltViewModel
 public class AirQualityViewModel extends ViewModel {
-    private AirQualityRepository repository;
+    private final AirQualityRepository repository;
     private LiveData<List<AirQuality>> airQualityData;
     private LiveData<String> errorMessage;
     private LiveData<Boolean> isLoading;
 
-    public AirQualityViewModel() {
-        repository = AirQualityRepository.getInstance();
+    @Inject
+    public AirQualityViewModel(AirQualityRepository repository) {
+        this.repository = repository;
     }
 
     /**
