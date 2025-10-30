@@ -39,14 +39,27 @@ Permettre aux utilisateurs de prendre des décisions éclairées concernant leur
   - O3 (Ozone)
   - SO2 (Dioxyde de soufre)
   - NH3 (Ammoniac)
+- **Navigation par fragments** : BottomNavigationView avec 2 écrans
+- **Fragment Liste (PollutionListFragment)** :
+  - RecyclerView avec affichage détaillé des données
+  - Indicateur de couleur par niveau de pollution
+  - Badge AQI coloré
+  - Valeurs des principaux polluants (PM2.5, PM10, NO2, O3)
+  - Indicateur de chargement (ProgressBar)
+  - Message d'état vide
+- **Fragment Images (ImagesFragment)** :
+  - Image principale montrant le niveau actuel
+  - Galerie de 6 images représentant tous les niveaux
+  - Gradients de couleur pour chaque niveau
+  - Mise en évidence du niveau actuel
+  - Légende dynamique avec AQI
 - **Prévisions de pollution** : Capacité de prévision sur 5 jours
 - **Classification française** : Système de classification localisé avec 6 niveaux
 - **Recommandations santé** : Conseils contextuels basés sur les niveaux de pollution
 - **Interface avec codes couleur** : Indicateurs visuels de la gravité de la pollution
+- **Images et gradients** : Représentations visuelles pour chaque niveau de pollution
 
 ### Fonctionnalités prévues 🔜
-- Affichage en liste avec RecyclerView
-- Indicateur de chargement
 - Rafraîchissement pull-to-refresh
 - Sélection de localisation
 - Affichage des prévisions détaillées
@@ -359,6 +372,7 @@ Le projet comprend une documentation détaillée en français :
 | **NOMS_FRANCAIS_POLLUTION.md** | Convention de nommage française, classification des niveaux |
 | **UNIT_TESTS_GUIDE.md** | Guide des tests unitaires, villes de test, cas de test |
 | **TESTING_GUIDE.md** | Tests UI avec Espresso, 4 suites de tests |
+| **FRAGMENTS_GUIDE.md** | Guide complet des fragments, RecyclerView, et images (NOUVEAU) |
 
 ### Consulter la documentation
 

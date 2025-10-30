@@ -136,7 +136,14 @@ public class AirQualityClassifier {
      */
     public static String obtenirCodeCouleur(AirQuality airQuality) {
         NiveauPollution niveau = classifierPollution(airQuality);
+        return obtenirCodeCouleur(niveau);
+    }
 
+    /**
+     * Détermine la couleur associée au niveau de pollution (pour l'UI)
+     * Méthode surchargée qui accepte directement un NiveauPollution
+     */
+    public static String obtenirCodeCouleur(NiveauPollution niveau) {
         switch (niveau) {
             case EXCELLENT:
                 return "#00E400"; // Vert foncé
