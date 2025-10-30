@@ -23,4 +23,9 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("AirAware.com", appContext.getPackageName());
     }
+    @Test
+    public void sampleTest() {
+        assertTrue(true);
+    }
+
 }

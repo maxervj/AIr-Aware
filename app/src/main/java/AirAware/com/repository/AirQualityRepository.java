@@ -140,4 +140,40 @@ public class AirQualityRepository {
     public LiveData<Boolean> getIsLoading() {
         return isLoading;
     }
+
+    /**
+     * Récupère les prévisions de pollution de l'air
+     */
+    public LiveData<AirAware.com.data.Forecast> getForecastData(double latitude, double longitude) {
+        MutableLiveData<AirAware.com.data.Forecast> forecastLiveData = new MutableLiveData<>();
+        isLoading.setValue(true);
+
+        apiService.getForecastAirPollution(latitude, longitude, API_KEY)
+                .enqueue(new Callback<AirAware.com.data.Forecast>() {
+                    @Override
+                    public void onResponse(Call<AirAware.com.data.Forecast> call, Response<AirAware.com.data.Forecast> response) {
+                        isLoading.setValue(false);
+                        if (response.isSuccessful() && response.body() != null) {
+                            forecastLiveData.setValue(response.body());
+                            Log.d(TAG, "Prévisions récupérées avec succès");
+                        } else {
+                            String error = "Erreur API prévisions: " + response.code();
+                            errorMessage.setValue(error);
+                            Log.e(TAG, error);
+                            forecastLiveData.setValue(null);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<AirAware.com.data.Forecast> call, Throwable t) {
+                        isLoading.setValue(false);
+                        String error = "Erreur réseau prévisions: " + t.getMessage();
+                        errorMessage.setValue(error);
+                        Log.e(TAG, error, t);
+                        forecastLiveData.setValue(null);
+                    }
+                });
+
+        return forecastLiveData;
+    }
 }

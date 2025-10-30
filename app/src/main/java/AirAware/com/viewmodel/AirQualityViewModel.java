@@ -1,5 +1,7 @@
 package AirAware.com.viewmodel;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -19,6 +21,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
  */
 @HiltViewModel
 public class AirQualityViewModel extends ViewModel {
+    private static final String TAG = "AirQualityViewModel";
     private final AirQualityRepository repository;
     private LiveData<List<AirQuality>> airQualityData;
     private LiveData<String> errorMessage;
@@ -66,9 +69,19 @@ public class AirQualityViewModel extends ViewModel {
         repository.refreshData(latitude, longitude, locationName);
     }
 
+    /**
+     * Récupère les prévisions de pollution de l'air
+     * Utilise le Repository pour respecter l'architecture MVVM
+     */
+    public LiveData<AirAware.com.data.Forecast> fetchAirPollutionForecast(double latitude, double longitude) {
+        Log.d(TAG, "Chargement des prévisions pour lat: " + latitude + ", lon: " + longitude);
+        return repository.getForecastData(latitude, longitude);
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();
         // Nettoyer les ressources si nécessaire
+        Log.d(TAG, "ViewModel cleared");
     }
 }

@@ -65,7 +65,22 @@ dependencies {
     implementation 'com.google.dagger:hilt-android:2.48'
     annotationProcessor 'com.google.dagger:hilt-compiler:2.48'
 
+    // Testing
     testImplementation libs.junit
+    testImplementation 'androidx.arch.core:core-testing:2.2.0'
+    testImplementation 'org.mockito:mockito-core:5.5.0'
+
+    // Android Testing
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.5.1'
+    androidTestImplementation 'androidx.test:runner:1.5.2'
+    androidTestImplementation 'androidx.test:rules:1.5.0'
+
+    // Hilt Testing
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.48'
+    androidTestAnnotationProcessor 'com.google.dagger:hilt-android-compiler:2.48'
+
+    // IdlingResource for Espresso
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.5.1'
 }
