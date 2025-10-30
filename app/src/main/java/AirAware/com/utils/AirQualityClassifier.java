@@ -162,6 +162,37 @@ public class AirQualityClassifier {
         }
     }
 
+    /**
+     * Retourne l'émoji associé au niveau de pollution
+     */
+    public static String obtenirEmoji(AirQuality airQuality) {
+        NiveauPollution niveau = classifierPollution(airQuality);
+        return obtenirEmoji(niveau);
+    }
+
+    /**
+     * Retourne l'émoji associé au niveau de pollution
+     * Méthode surchargée qui accepte directement un NiveauPollution
+     */
+    public static String obtenirEmoji(NiveauPollution niveau) {
+        switch (niveau) {
+            case EXCELLENT:
+                return "😊"; // Excellent - Visage souriant
+            case BON:
+                return "🙂"; // Bon - Visage légèrement souriant
+            case MODERE:
+                return "😐"; // Modéré - Visage neutre
+            case MAUVAIS:
+                return "😟"; // Mauvais - Visage inquiet
+            case TRES_MAUVAIS:
+                return "😷"; // Très mauvais - Visage avec masque
+            case EXTREMEMENT_MAUVAIS:
+                return "☠️"; // Extrêmement mauvais - Tête de mort
+            default:
+                return "❓"; // Inconnu
+        }
+    }
+
     // ====== MÉTHODES DE COMPATIBILITÉ (pour code existant) ======
 
     /**

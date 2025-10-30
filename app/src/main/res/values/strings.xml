@@ -1,3 +1,32 @@
 <resources>
-    <string name="app_name">AIr Aware</string>
+    <string name="app_name">AIrAware</string>
+
+    <!-- Navigation -->
+    <string name="nav_list">Liste</string>
+    <string name="nav_images">Niveaux</string>
+
+    <!-- Fragment Titles -->
+    <string name="pollution_data_title">📊 Données de Pollution</string>
+    <string name="air_quality_title">🌍 Qualité de l\'Air</string>
+
+    <!-- Messages -->
+    <string name="loading">Chargement des données…</string>
+    <string name="no_data">Aucune donnée disponible</string>
+    <string name="error_loading">Erreur lors du chargement des données</string>
+
+    <!-- Pollution Levels -->
+    <string name="excellent">😊 Excellent</string>
+    <string name="good">🙂 Bon</string>
+    <string name="moderate">😐 Modéré</string>
+    <string name="poor">😟 Mauvais</string>
+    <string name="very_poor">😷 Très Mauvais</string>
+    <string name="extreme">☠️ Extrême</string>
+
+    <!-- Pollutants -->
+    <string name="pm25_label">PM2.5:</string>
+    <string name="pm10_label">PM10:</string>
+    <string name="no2_label">NO2:</string>
+    <string name="o3_label">O3:</string>
+    <string name="co_label">CO:</string>
+    <string name="so2_label">SO2:</string>
 </resources>

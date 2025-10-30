@@ -99,21 +99,22 @@ public class PollutionAdapter extends ListAdapter<AirQuality, PollutionAdapter.P
         }
 
         private String getNiveauText(AirQualityClassifier.NiveauPollution niveau) {
+            String emoji = AirQualityClassifier.obtenirEmoji(niveau);
             switch (niveau) {
                 case EXCELLENT:
-                    return "Excellent";
+                    return emoji + " Excellent";
                 case BON:
-                    return "Bon";
+                    return emoji + " Bon";
                 case MODERE:
-                    return "Modéré";
+                    return emoji + " Modéré";
                 case MAUVAIS:
-                    return "Mauvais";
+                    return emoji + " Mauvais";
                 case TRES_MAUVAIS:
-                    return "Très Mauvais";
+                    return emoji + " Très Mauvais";
                 case EXTREMEMENT_MAUVAIS:
-                    return "Extrêmement Mauvais";
+                    return emoji + " Extrêmement Mauvais";
                 default:
-                    return "Inconnu";
+                    return emoji + " Inconnu";
             }
         }
 

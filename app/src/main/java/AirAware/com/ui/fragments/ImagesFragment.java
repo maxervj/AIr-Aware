@@ -52,13 +52,8 @@ public class ImagesFragment extends Fragment {
     }
 
     private void setupImages() {
-        // Configurer les images de fond pour chaque niveau
-        binding.imageViewExcellent.setBackgroundResource(R.drawable.bg_excellent);
-        binding.imageViewGood.setBackgroundResource(R.drawable.bg_good);
-        binding.imageViewModerate.setBackgroundResource(R.drawable.bg_moderate);
-        binding.imageViewPoor.setBackgroundResource(R.drawable.bg_poor);
-        binding.imageViewVeryPoor.setBackgroundResource(R.drawable.bg_very_poor);
-        binding.imageViewExtreme.setBackgroundResource(R.drawable.bg_extreme);
+        // Les images sont déjà définies dans le XML via android:src
+        // Pas besoin de les configurer ici
     }
 
     private void observeViewModel() {
@@ -75,33 +70,34 @@ public class ImagesFragment extends Fragment {
                 AirQualityClassifier.classifierPollution(airQuality);
 
         // Mettre à jour l'image principale en fonction du niveau
-        int backgroundResource = getBackgroundForNiveau(niveau);
-        binding.imageViewMain.setBackgroundResource(backgroundResource);
+        int imageResource = getImageForNiveau(niveau);
+        binding.imageViewMain.setImageResource(imageResource);
 
-        // Mettre à jour le texte de la légende
-        String caption = getNiveauText(niveau) + " - AQI: " + airQuality.getAqi();
+        // Mettre à jour le texte de la légende avec émoji
+        String emoji = AirQualityClassifier.obtenirEmoji(niveau);
+        String caption = emoji + " " + getNiveauText(niveau) + " - AQI: " + airQuality.getAqi();
         binding.textViewMainImageCaption.setText(caption);
 
         // Mettre à jour la visibilité des cartes pour mettre en évidence le niveau actuel
         highlightCurrentLevel(niveau);
     }
 
-    private int getBackgroundForNiveau(AirQualityClassifier.NiveauPollution niveau) {
+    private int getImageForNiveau(AirQualityClassifier.NiveauPollution niveau) {
         switch (niveau) {
             case EXCELLENT:
-                return R.drawable.bg_excellent;
+                return R.drawable.air_excellent;
             case BON:
-                return R.drawable.bg_good;
+                return R.drawable.air_good;
             case MODERE:
-                return R.drawable.bg_moderate;
+                return R.drawable.air_moderate;
             case MAUVAIS:
-                return R.drawable.bg_poor;
+                return R.drawable.air_poor;
             case TRES_MAUVAIS:
-                return R.drawable.bg_very_poor;
+                return R.drawable.air_very_poor;
             case EXTREMEMENT_MAUVAIS:
-                return R.drawable.bg_extreme;
+                return R.drawable.air_extreme;
             default:
-                return R.drawable.bg_moderate;
+                return R.drawable.air_moderate;
         }
     }
 
