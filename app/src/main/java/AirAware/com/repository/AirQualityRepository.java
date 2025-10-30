@@ -7,10 +7,13 @@ import androidx.lifecycle.MutableLiveData;
 
 import AirAware.com.data.AirPollutionResponse;
 import AirAware.com.model.AirQuality;
-import AirAware.com.network.RetrofitClient;
+import AirAware.com.network.OpenWeatherApiService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,28 +22,25 @@ import retrofit2.Response;
 /**
  * Repository pour gérer les données de qualité de l'air via l'API OpenWeather
  * Cette classe sert d'intermédiaire entre le ViewModel et les sources de données
+ * Utilise Hilt pour l'injection de dépendances
  */
+@Singleton
 public class AirQualityRepository {
     private static final String TAG = "AirQualityRepository";
-    private static AirQualityRepository instance;
+    private final OpenWeatherApiService apiService;
     private MutableLiveData<List<AirQuality>> airQualityData;
     private MutableLiveData<String> errorMessage;
     private MutableLiveData<Boolean> isLoading;
 
-    // TODO: Remplacer par votre clé API OpenWeather
-    private static final String API_KEY = "VOTRE_CLE_API_ICI";
+    // Clé API OpenWeather
+    private static final String API_KEY = "619d368931beecb904e9f5410dc515d6";
 
-    private AirQualityRepository() {
+    @Inject
+    public AirQualityRepository(OpenWeatherApiService apiService) {
+        this.apiService = apiService;
         airQualityData = new MutableLiveData<>();
         errorMessage = new MutableLiveData<>();
         isLoading = new MutableLiveData<>();
-    }
-
-    public static synchronized AirQualityRepository getInstance() {
-        if (instance == null) {
-            instance = new AirQualityRepository();
-        }
-        return instance;
     }
 
     /**
@@ -56,9 +56,7 @@ public class AirQualityRepository {
      * Récupère les données depuis l'API OpenWeather
      */
     private void fetchAirPollutionData(double latitude, double longitude, String locationName) {
-        RetrofitClient.getInstance()
-                .getApiService()
-                .getCurrentAirPollution(latitude, longitude, API_KEY)
+        apiService.getCurrentAirPollution(latitude, longitude, API_KEY)
                 .enqueue(new Callback<AirPollutionResponse>() {
                     @Override
                     public void onResponse(Call<AirPollutionResponse> call, Response<AirPollutionResponse> response) {
