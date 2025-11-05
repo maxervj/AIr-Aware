@@ -48,8 +48,7 @@ public class PollutionListFragment extends Fragment {
         setupRecyclerView();
         observeViewModel();
 
-        // Charger les données par défaut (Paris)
-        viewModel.loadAirQualityData(48.8566, 2.3522, "Paris");
+        // Les données sont chargées par MainActivity lors de la sélection de la ville
     }
 
     private void setupRecyclerView() {

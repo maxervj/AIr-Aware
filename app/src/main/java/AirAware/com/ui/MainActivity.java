@@ -2,6 +2,9 @@ package AirAware.com.ui;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -16,6 +19,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import AirAware.com.R;
 import AirAware.com.databinding.ActivityMainBinding;
+import AirAware.com.model.City;
 import AirAware.com.ui.fragments.ImagesFragment;
 import AirAware.com.ui.fragments.PollutionListFragment;
 import AirAware.com.viewmodel.AirQualityViewModel;
@@ -33,10 +37,9 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private AirQualityViewModel viewModel;
 
-    // Coordonnées par défaut (Paris)
-    private static final double DEFAULT_LATITUDE = 48.8566;
-    private static final double DEFAULT_LONGITUDE = 2.3522;
-    private static final String DEFAULT_LOCATION = "Paris";
+    // Liste des villes disponibles
+    private City[] cities;
+    private City selectedCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,13 +61,17 @@ public class MainActivity extends AppCompatActivity {
         // Configurer la navigation
         setupBottomNavigation();
 
-        // Charger le fragment initial
+        // Configurer le sélecteur de ville
+        setupCitySelector();
+
+        // Charger explicitement les données initiales AVANT de charger le fragment
+        // Ceci garantit que les LiveData sont initialisées dans le ViewModel
+        loadAirQualityData();
+
+        // Charger le fragment initial (les LiveData sont maintenant initialisées)
         if (savedInstanceState == null) {
             loadFragment(new PollutionListFragment());
         }
-
-        // Charger les données de pollution pour Paris
-        loadAirQualityData();
     }
 
     /**
@@ -73,6 +80,38 @@ public class MainActivity extends AppCompatActivity {
     private void initViewModel() {
         viewModel = new ViewModelProvider(this).get(AirQualityViewModel.class);
         Log.d(TAG, "ViewModel initialisé");
+    }
+
+    /**
+     * Configure le sélecteur de ville
+     */
+    private void setupCitySelector() {
+        cities = City.getAvailableCities();
+        selectedCity = cities[0]; // Paris par défaut
+
+        // Créer un ArrayAdapter pour le Spinner
+        ArrayAdapter<City> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_item,
+                cities
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.citySpinner.setAdapter(adapter);
+
+        // Gérer la sélection de ville
+        binding.citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedCity = cities[position];
+                loadAirQualityData();
+                Log.d(TAG, "Ville sélectionnée : " + selectedCity.getName());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Ne rien faire
+            }
+        });
     }
 
     /**
@@ -113,11 +152,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Charge les données de qualité de l'air
+     * Charge les données de qualité de l'air pour la ville sélectionnée
      */
     private void loadAirQualityData() {
-        viewModel.loadAirQualityData(DEFAULT_LATITUDE, DEFAULT_LONGITUDE, DEFAULT_LOCATION);
-        Log.d(TAG, "Chargement des données pour " + DEFAULT_LOCATION);
+        if (selectedCity != null) {
+            viewModel.loadAirQualityData(
+                    selectedCity.getLatitude(),
+                    selectedCity.getLongitude(),
+                    selectedCity.getName()
+            );
+            Log.d(TAG, "Chargement des données pour " + selectedCity.getName());
+        }
     }
 
     @Override

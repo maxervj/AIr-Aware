@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="246dp"
         android:padding="16dp">
 
         <!-- Indicateur de couleur pour le niveau de pollution -->
@@ -19,9 +19,9 @@
             android:layout_width="8dp"
             android:layout_height="0dp"
             android:background="#00E400"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Nom de la localisation -->
         <TextView
@@ -30,12 +30,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="Paris, France"
+            android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="@android:color/black"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/viewColorIndicator"
             app:layout_constraintEnd_toStartOf="@id/textViewAQI"
+            app:layout_constraintStart_toEndOf="@id/viewColorIndicator"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Paris, France" />
 
         <!-- Badge AQI -->
@@ -48,8 +48,8 @@
             android:text="AQI: 2"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="AQI: 2" />
 
         <!-- Status de pollution -->
@@ -60,11 +60,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:text="Bon"
-            android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
-            app:layout_constraintTop_toBottomOf="@id/textViewLocation"
-            app:layout_constraintStart_toEndOf="@id/viewColorIndicator"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/viewColorIndicator"
+            app:layout_constraintTop_toBottomOf="@id/textViewLocation"
             tools:text="Bon" />
 
         <!-- Divider -->
@@ -72,12 +72,12 @@
             android:id="@+id/divider"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="12dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
             android:background="@android:color/darker_gray"
-            app:layout_constraintTop_toBottomOf="@id/textViewStatus"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/viewColorIndicator"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/textViewStatus" />
 
         <!-- PM2.5 -->
         <TextView
@@ -89,8 +89,8 @@
             android:text="PM2.5:"
             android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/divider"
-            app:layout_constraintStart_toEndOf="@id/viewColorIndicator" />
+            app:layout_constraintStart_toEndOf="@id/viewColorIndicator"
+            app:layout_constraintTop_toBottomOf="@id/divider" />
 
         <TextView
             android:id="@+id/textViewPM25"
@@ -99,8 +99,8 @@
             android:layout_marginStart="8dp"
             android:text="12.5 μg/m³"
             android:textSize="12sp"
-            app:layout_constraintTop_toTopOf="@id/labelPM25"
             app:layout_constraintStart_toEndOf="@id/labelPM25"
+            app:layout_constraintTop_toTopOf="@id/labelPM25"
             tools:text="12.5 μg/m³" />
 
         <!-- PM10 -->
@@ -112,8 +112,8 @@
             android:text="PM10:"
             android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="@id/labelPM25"
-            app:layout_constraintStart_toEndOf="@id/textViewPM25" />
+            app:layout_constraintStart_toEndOf="@id/textViewPM25"
+            app:layout_constraintTop_toTopOf="@id/labelPM25" />
 
         <TextView
             android:id="@+id/textViewPM10"
@@ -122,8 +122,8 @@
             android:layout_marginStart="8dp"
             android:text="25.3 μg/m³"
             android:textSize="12sp"
-            app:layout_constraintTop_toTopOf="@id/labelPM10"
             app:layout_constraintStart_toEndOf="@id/labelPM10"
+            app:layout_constraintTop_toTopOf="@id/labelPM10"
             tools:text="25.3 μg/m³" />
 
         <!-- NO2 -->
@@ -136,8 +136,8 @@
             android:text="NO2:"
             android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/labelPM25"
-            app:layout_constraintStart_toEndOf="@id/viewColorIndicator" />
+            app:layout_constraintStart_toEndOf="@id/viewColorIndicator"
+            app:layout_constraintTop_toBottomOf="@id/labelPM25" />
 
         <TextView
             android:id="@+id/textViewNO2"
@@ -146,8 +146,8 @@
             android:layout_marginStart="8dp"
             android:text="40.2 μg/m³"
             android:textSize="12sp"
-            app:layout_constraintTop_toTopOf="@id/labelNO2"
             app:layout_constraintStart_toEndOf="@id/labelNO2"
+            app:layout_constraintTop_toTopOf="@id/labelNO2"
             tools:text="40.2 μg/m³" />
 
         <!-- O3 -->
@@ -159,8 +159,8 @@
             android:text="O3:"
             android:textSize="12sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toTopOf="@id/labelNO2"
-            app:layout_constraintStart_toEndOf="@id/textViewNO2" />
+            app:layout_constraintStart_toEndOf="@id/textViewNO2"
+            app:layout_constraintTop_toTopOf="@id/labelNO2" />
 
         <TextView
             android:id="@+id/textViewO3"
@@ -169,8 +169,8 @@
             android:layout_marginStart="8dp"
             android:text="80.1 μg/m³"
             android:textSize="12sp"
-            app:layout_constraintTop_toTopOf="@id/labelO3"
             app:layout_constraintStart_toEndOf="@id/labelO3"
+            app:layout_constraintTop_toTopOf="@id/labelO3"
             tools:text="80.1 μg/m³" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
