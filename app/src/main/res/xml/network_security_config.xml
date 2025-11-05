@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Configuration pour permettre les connexions HTTPS vers OpenWeatherMap -->
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <!-- Faire confiance aux certificats système -->
+            <certificates src="system" />
+        </trust-anchors>
+    </base-config>
+
+    <!-- Configuration spécifique pour api.openweathermap.org -->
+    <domain-config>
+        <domain includeSubdomains="true">api.openweathermap.org</domain>
+        <trust-anchors>
+            <certificates src="system" />
+        </trust-anchors>
+    </domain-config>
+</network-security-config>

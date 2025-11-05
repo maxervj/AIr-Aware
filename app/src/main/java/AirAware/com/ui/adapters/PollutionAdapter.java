@@ -1,8 +1,11 @@
 package AirAware.com.ui.adapters;
 
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
@@ -13,7 +16,9 @@ import java.util.Locale;
 
 import AirAware.com.databinding.ItemPollutionBinding;
 import AirAware.com.model.AirQuality;
+import AirAware.com.model.HealthRecommendation;
 import AirAware.com.utils.AirQualityClassifier;
+import AirAware.com.utils.HealthRecommendationGenerator;
 
 /**
  * Adapter pour afficher les données de pollution dans un RecyclerView
@@ -96,6 +101,50 @@ public class PollutionAdapter extends ListAdapter<AirQuality, PollutionAdapter.P
             binding.textViewPM10.setText(String.format(Locale.getDefault(), "%.1f μg/m³", airQuality.getPm10()));
             binding.textViewNO2.setText(String.format(Locale.getDefault(), "%.1f μg/m³", airQuality.getNo2()));
             binding.textViewO3.setText(String.format(Locale.getDefault(), "%.1f μg/m³", airQuality.getO3()));
+
+            // Afficher le résumé des recommandations santé
+            String healthSummary = HealthRecommendationGenerator.genererResumeCourt(airQuality);
+            binding.textViewHealthSummary.setText(healthSummary);
+
+            // Configurer le bouton pour afficher les détails
+            binding.buttonViewDetails.setOnClickListener(v -> {
+                showHealthRecommendationDialog(airQuality);
+            });
+        }
+
+        private void showHealthRecommendationDialog(AirQuality airQuality) {
+            // Générer la recommandation complète
+            HealthRecommendation recommendation = HealthRecommendationGenerator.genererRecommandation(airQuality);
+
+            // Créer un TextView pour afficher les détails
+            TextView textView = new TextView(binding.getRoot().getContext());
+            textView.setText(recommendation.getRecommendationComplete());
+            textView.setTextSize(13);
+            textView.setPadding(40, 40, 40, 40);
+            textView.setTextIsSelectable(true);
+
+            // Mettre le TextView dans un ScrollView
+            ScrollView scrollView = new ScrollView(binding.getRoot().getContext());
+            scrollView.addView(textView);
+
+            // Créer et afficher le dialog
+            new AlertDialog.Builder(binding.getRoot().getContext())
+                    .setTitle("🏥 Recommandations Santé Détaillées")
+                    .setView(scrollView)
+                    .setPositiveButton("Compris", null)
+                    .setIcon(getDialogIcon(recommendation.getNiveauRisque()))
+                    .show();
+        }
+
+        private int getDialogIcon(int niveauRisque) {
+            // Retourne l'icône appropriée selon le niveau de risque
+            if (niveauRisque <= 1) {
+                return android.R.drawable.ic_dialog_info; // Info pour bon air
+            } else if (niveauRisque <= 3) {
+                return android.R.drawable.ic_dialog_alert; // Alerte pour modéré/mauvais
+            } else {
+                return android.R.drawable.ic_dialog_alert; // Alerte critique
+            }
         }
 
         private String getNiveauText(AirQualityClassifier.NiveauPollution niveau) {
