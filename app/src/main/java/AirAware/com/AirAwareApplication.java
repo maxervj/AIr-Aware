@@ -7,7 +7,7 @@ import dagger.hilt.android.HiltAndroidApp;
  * Classe Application pour l'initialisation de Hilt
  */
 @HiltAndroidApp
-public class AirAwareApplication extends Application {
+public class    AirAwareApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();

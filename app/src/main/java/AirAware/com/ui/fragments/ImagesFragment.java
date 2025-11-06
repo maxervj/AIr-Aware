@@ -84,17 +84,17 @@ public class ImagesFragment extends Fragment {
     private int getImageForNiveau(AirQualityClassifier.NiveauPollution niveau) {
         switch (niveau) {
             case EXCELLENT:
-                return R.drawable.air_excellent;
+                return R.drawable.airexcellent;
             case BON:
-                return R.drawable.air_good;
+                return R.drawable.cielclair;
             case MODERE:
-                return R.drawable.air_moderate;
+                return R.drawable.pollutionmod_r_;
             case MAUVAIS:
-                return R.drawable.air_poor;
+                return R.drawable.airpolu_;
             case TRES_MAUVAIS:
-                return R.drawable.air_very_poor;
+                return R.drawable.pollution_elev_;
             case EXTREMEMENT_MAUVAIS:
-                return R.drawable.air_extreme;
+                return R.drawable.pollution_severe;
             default:
                 return R.drawable.air_moderate;
         }

@@ -20,6 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import AirAware.com.R;
 import AirAware.com.databinding.ActivityMainBinding;
 import AirAware.com.model.City;
+import AirAware.com.ui.fragments.HomeFragment;
 import AirAware.com.ui.fragments.ImagesFragment;
 import AirAware.com.ui.fragments.PollutionListFragment;
 import AirAware.com.viewmodel.AirQualityViewModel;
@@ -70,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Charger le fragment initial (les LiveData sont maintenant initialisées)
         if (savedInstanceState == null) {
-            loadFragment(new PollutionListFragment());
+            loadFragment(new HomeFragment());
+            binding.bottomNavigation.setSelectedItemId(R.id.navigation_home);
         }
     }
 
@@ -122,7 +124,10 @@ public class MainActivity extends AppCompatActivity {
             Fragment selectedFragment = null;
             int itemId = item.getItemId();
 
-            if (itemId == R.id.navigation_list) {
+            if (itemId == R.id.navigation_home) {
+                selectedFragment = new HomeFragment();
+                Log.d(TAG, "Fragment Accueil sélectionné");
+            } else if (itemId == R.id.navigation_list) {
                 selectedFragment = new PollutionListFragment();
                 Log.d(TAG, "Fragment Liste sélectionné");
             } else if (itemId == R.id.navigation_images) {
